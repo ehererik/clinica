@@ -1,7 +1,10 @@
 package modelo;
 
-public class Clinica {
-    public Clinica() {
+public class Clinica 
+{
+    public Clinica() 
+    {
         super();
     }
+    
 }
