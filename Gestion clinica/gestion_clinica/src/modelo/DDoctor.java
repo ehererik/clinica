@@ -29,6 +29,4 @@ public class DDoctor extends DecoratorPosgrado
 		return this.encapsulado.toString() + ", posgrado=doctor";
 	}
 	
-	
-	
 }
