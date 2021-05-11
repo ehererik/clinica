@@ -1,17 +1,22 @@
 package modelo;
 
+import excepciones.NoExisteContratacionException;
+import excepciones.NoExisteEspecialidadException;
+import excepciones.NoExistePosgradoException;
+import excepciones.NoHayContratacionException;
+import excepciones.NoHayEspecialidadException;
+
 public class MedicoFactory
 {
-	public static IMedico getMedico(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, double sueldoBase,String especialidad, String posgrado, String contratacion)
+	public static IMedico getMedico(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, double sueldoBase,String especialidad, String posgrado, String contratacion) throws NoHayEspecialidadException, NoHayContratacionException, NoExistePosgradoException, NoExisteContratacionException, NoExisteEspecialidadException
 	{
 		IMedico encapsulado1 = null;
 		IMedico encapsulado2 = null;
 		IMedico respuesta = null;
 		
 		if(especialidad == null) //excepcion -> no tiene especialidad
-		{
-			
-		}
+			throw new NoHayEspecialidadException("El medico debe tener una especialidad");
+		
 		if(especialidad.equalsIgnoreCase("CLINICO"))
 			encapsulado1 = new Clinico(nombre,apellido,dni,domicilio,ciudad,telefono,sueldoBase);
 		else if(especialidad.equalsIgnoreCase("CIRUJANO"))
@@ -27,50 +32,39 @@ public class MedicoFactory
 					encapsulado2 = new DDoctor(encapsulado1);
 				else if(posgrado.equalsIgnoreCase("MAGISTER"))
 					encapsulado2 = new DMagister(encapsulado1);
-				else //excepcion -> no existe el posgrado 
-				{
-					
-					
-					
-				}
 				
+				else //excepcion -> no existe el posgrado 
+					throw new NoExistePosgradoException("El posgrado no es valido",posgrado);
 			}
 			if(encapsulado2 != null) //tiene posgrado
 			{
 				if(contratacion == null) //excepcion -> no hay contratacion
-				{
-					
-				}
+					throw new NoHayContratacionException("El medico debe tener una contratacion");
+				
 				else if(contratacion.equalsIgnoreCase("RESIDENTE"))
 					respuesta = new DResidente(encapsulado2);
 				else if(contratacion.equalsIgnoreCase("PLANTEL PERMANENTE"))
 					respuesta = new DPermanente(encapsulado2);
 				else //excepcion -> no existe el tipo de contratacion
-				{
-					
-				}
+					throw new NoExisteContratacionException("El tipo de contratacion no es valido",contratacion);
+				
 			}
 			else //no tiene un posgrado
 			{
 				if(contratacion == null) //excepcion -> no hay contratacion
-				{
-					
-				}
+					throw new NoHayContratacionException("El medico debe tener una contratacion");
+				
 				else if(contratacion.equalsIgnoreCase("RESIDENTE"))
 					respuesta = new DResidente(encapsulado1);
 				else if(contratacion.equalsIgnoreCase("PLANTEL PERMANENTE"))
 					respuesta = new DPermanente(encapsulado1);
 				else //excepcion -> no existe el tipo de contratacion
-				{
-					
-				}
+					throw new NoExisteContratacionException("El tipo de contratacion no es valido",contratacion);
 				
 			}
 		}
 		else // excepcion -> la especialidad no existe
-		{
-			
-		}
+			throw new NoExisteEspecialidadException("La especialidad no es valida",especialidad);
 		
 		return respuesta;
 	}
