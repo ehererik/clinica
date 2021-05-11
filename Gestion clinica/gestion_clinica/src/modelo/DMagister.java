@@ -8,21 +8,40 @@ public class DMagister extends DecoratorPosgrado
 	}
 
 	@Override
-	public double calculaSueldo()
+	public double getHonorarioBasico()
 	{
-		double sueldo = this.encapsulado.calculaSueldo();
+		double sueldo = this.encapsulado.getHonorarioBasico();
 		sueldo += sueldo * 0.05;
 		return sueldo;
-	}
-
-	public String datos()
-	{
-		return this.encapsulado.datos() + ", Posgrado: Magister";
 	}
 
 	@Override
 	public String toString()
 	{
 		return this.encapsulado.toString() + ", posgrado=magister";
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return this.encapsulado.getNombre();
+	}
+
+	@Override
+	public String getPrestacion()
+	{
+		return null;
+	}
+
+	@Override
+	public double getValorUnitarioPrestacion()
+	{
+		return 0;
+	}
+
+	@Override
+	public String getClavePrimaria()
+	{
+		return null;
 	}
 }

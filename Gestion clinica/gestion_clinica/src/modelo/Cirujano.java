@@ -9,16 +9,11 @@ public class Cirujano extends Medico
 	}
 
 	@Override
-	public double calculaSueldo()
+	public double getHonorarioBasico()
 	{
 		double sueldo = this.honorarioBasico;
 		sueldo += sueldo * 0.1;
 		return sueldo;
-	}
-
-	public String datos()
-	{
-		return super.datos() + ", Especialidad: Cirujano";
 	}
 
 	@Override
@@ -27,5 +22,24 @@ public class Cirujano extends Medico
 		return "Cirujano [sueldoBase=" + this.getHonorarioBasico() + ", nombre=" + this.getNombre() + ", apellido=" + this.getApellido() + ", dni=" + this.getDni()
 				+ ", domicilio=" + this.getDomicilio() + ", ciudad=" + this.getCiudad() + ", telefono=" + this.getTelefono();
 	}
+
+	@Override
+	public String getPrestacion()
+	{
+		return null;
+	}
+
+	@Override
+	public double getValorUnitarioPrestacion()
+	{
+		return 0;
+	}
+
+	@Override
+	public String getClavePrimaria()
+	{
+		return null;
+	}
+
 	
 }

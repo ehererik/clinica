@@ -1,6 +1,6 @@
 package modelo;
 
-public abstract class Persona
+public abstract class Persona implements Cloneable
 {
 	private String nombre;
 	private String apellido;
@@ -18,10 +18,14 @@ public abstract class Persona
 		this.ciudad = ciudad;
 		this.telefono = telefono;
 	}
+	
+	public Persona()
+	{
+	}
 
 	public String getNombre()
 	{
-		return nombre;
+		return nombre + apellido;
 	}
 
 	public void setNombre(String nombre)
@@ -74,4 +78,7 @@ public abstract class Persona
 		return dni;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

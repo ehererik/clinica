@@ -8,21 +8,41 @@ public class DPermanente extends DecoratorContratacion
 	}
 
 	@Override
-	public double calculaSueldo()
+	public double getHonorarioBasico()
 	{
-		double sueldo = this.encapsulado.calculaSueldo();
+		double sueldo = this.encapsulado.getHonorarioBasico();
 		sueldo += sueldo * 0.1;
 		return sueldo;
-	}
-
-	public String datos()
-	{
-		return this.encapsulado.datos() + ", Contratacion: Plantel permanente";
 	}
 
 	@Override
 	public String toString()
 	{
 		return this.encapsulado.toString() + ", contratacion=plantel permanente]";
+	}
+	
+	@Override
+	public String getPrestacion()
+	{
+		return "Nombre del medico: " + this.getNombre();
+	}
+
+	@Override
+	public double getValorUnitarioPrestacion()
+	{
+		double honorario = this.getHonorarioBasico();
+		return honorario * 1.2; // hay que agregar la constante
+	}
+
+	@Override
+	public String getClavePrimaria()
+	{
+		return this.getNombre();
+	}
+
+	@Override
+	public String getNombre()
+	{
+		return this.encapsulado.getNombre();
 	}
 }

@@ -1,6 +1,6 @@
 package modelo;
 
-public abstract class DecoratorContratacion implements IMedico
+public abstract class DecoratorContratacion implements IMedico, IPrestacion
 {
 	protected IMedico encapsulado;
 

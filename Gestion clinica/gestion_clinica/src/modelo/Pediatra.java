@@ -9,16 +9,11 @@ public class Pediatra extends Medico
 	}
 
 	@Override
-	public double calculaSueldo()
+	public double getHonorarioBasico()
 	{
 		double sueldo = this.honorarioBasico;
 		sueldo += sueldo * 0.07;	
 		return sueldo;
-	}
-	
-	public String datos()
-	{
-		return super.datos() + ", Especialidad: Pediatra";
 	}
 
 	@Override
@@ -26,6 +21,24 @@ public class Pediatra extends Medico
 	{
 		return "Pediatra [sueldoBase=" + this.getHonorarioBasico() + ", nombre=" + this.getNombre() + ", apellido=" + this.getApellido() + ", dni=" + this.getDni()
 				+ ", domicilio=" + this.getDomicilio() + ", ciudad=" + this.getCiudad() + ", telefono=" + this.getTelefono() ;
+	}
+
+	@Override
+	public String getPrestacion()
+	{
+		return null;
+	}
+
+	@Override
+	public double getValorUnitarioPrestacion()
+	{
+		return 0;
+	}
+
+	@Override
+	public String getClavePrimaria()
+	{
+		return null;
 	}
 	
 	
