@@ -2,14 +2,11 @@ package modelo;
 
 public class DPermanente extends DecoratorContratacion
 {
-	private IMedico encapsulado;
-	
 	protected DPermanente(IMedico encapsulado)
 	{
-		super();
-		this.encapsulado = encapsulado;
+		super(encapsulado);
 	}
-	
+
 	@Override
 	public double calculaSueldo()
 	{
@@ -17,12 +14,12 @@ public class DPermanente extends DecoratorContratacion
 		sueldo += sueldo * 0.1;
 		return sueldo;
 	}
-	
+
 	public String datos()
 	{
 		return this.encapsulado.datos() + ", Contratacion: Plantel permanente";
 	}
-	
+
 	@Override
 	public String toString()
 	{

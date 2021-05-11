@@ -2,14 +2,11 @@ package modelo;
 
 public class DDoctor extends DecoratorPosgrado
 {
-	private IMedico encapsulado;
-	
 	protected DDoctor(IMedico encapsulado)
 	{
-		super();
-		this.encapsulado = encapsulado;
+		super(encapsulado);
 	}
-	
+
 	@Override
 	public double calculaSueldo()
 	{
@@ -17,7 +14,7 @@ public class DDoctor extends DecoratorPosgrado
 		sueldo += sueldo * 0.1;
 		return sueldo;
 	}
-	
+
 	public String datos()
 	{
 		return this.encapsulado.datos() + ", Posgrado: Doctor";
@@ -28,5 +25,5 @@ public class DDoctor extends DecoratorPosgrado
 	{
 		return this.encapsulado.toString() + ", posgrado=doctor";
 	}
-	
+
 }
