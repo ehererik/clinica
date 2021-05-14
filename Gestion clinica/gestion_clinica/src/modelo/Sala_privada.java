@@ -6,12 +6,17 @@ import excepciones.PacienteNoEncontradoExcepcion;
 public class Sala_privada extends Sala{
         
     Paciente pac;
+    private static Sala_privada _instance=null;
     
-    public Sala_privada() {
+    private Sala_privada() {
         super();
     }
 
-    
+    public static Sala_privada getInstace(){
+        if(_instance==null)
+            _instance= new Sala_privada();
+        return _instance;
+    }
     
     public void AgregaPaciente(Paciente p) {
         this.pac=p;
@@ -31,7 +36,7 @@ public class Sala_privada extends Sala{
     public void muestraPaciente(){
         if(this.pac!=null){
             System.out.println("Paciente de la sala privada");
-            System.out.println(this.pac.getNombre()+" " +this.pac.getDni()+ " nro orden: "+this.pac.getNroOrden());
+            System.out.println(this.pac.getNombre()+" dni: " +this.pac.getDni()+ " nro orden: "+this.pac.getNroOrden());
         }
             
         else
@@ -41,7 +46,7 @@ public class Sala_privada extends Sala{
     @Override
     public void QuitaPaciente(String dni) throws PacienteNoEncontradoExcepcion{
         if(dni!=this.pac.getDni())
-            throw new PacienteNoEncontradoExcepcion(dni);
+            throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.",dni);
         else
             this.pac=null;
     }

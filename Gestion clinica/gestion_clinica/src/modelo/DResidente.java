@@ -45,5 +45,11 @@ public class DResidente extends DecoratorContratacion
 	{
 		return this.encapsulado.getNombre();
 	}
+
+	@Override
+	public String getDni()
+	{
+		return encapsulado.getDni();
+	}
 	
 }

@@ -5,7 +5,7 @@ public class Joven extends Paciente implements PrioridadAsignacion {
         super();
     }
 
-    public Joven(String nombre, String apellido, String dni, String domicilo, String ciudad, String telefono) {
+    protected Joven(String nombre, String apellido, String dni, String domicilo, String ciudad, String telefono) {
         super(nombre, apellido, dni, domicilo, ciudad, telefono);
     }
 

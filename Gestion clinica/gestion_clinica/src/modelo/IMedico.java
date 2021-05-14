@@ -9,6 +9,8 @@ public interface IMedico
 	public abstract String toString();
 
 	public abstract String getNombre();
+	
+	public abstract String getDni();
 
 	public abstract String getPrestacion(); // retorna un string de la forma TIPO DE PRESTACION + CLAVE PRIMARIA. Por ej.
 									// tipo de prestacion:Medico y clave:Juan Gomez ---> Devuelve Medico: Juan Gomez

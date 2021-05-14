@@ -9,4 +9,6 @@ public abstract class DecoratorContratacion implements IMedico, IPrestacion
 		this.encapsulado = encapsulado;
 	}
 
+	
+	
 }

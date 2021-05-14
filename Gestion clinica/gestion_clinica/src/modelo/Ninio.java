@@ -5,7 +5,7 @@ public class Ninio extends Paciente {
         super();
     }
 
-    public Ninio(String nombre, String apellido, String dni, String domicilo, String ciudad, String telefono) {
+    protected Ninio(String nombre, String apellido, String dni, String domicilo, String ciudad, String telefono) {
         super(nombre, apellido, dni, domicilo, ciudad, telefono);
     }
 

@@ -1,7 +1,6 @@
 package modelo;
 
-
-public class Habitacion implements IPrestacion
+public abstract class Habitacion implements IPrestacion
 {
 	double costoBase;
 	private int numHabitacion;

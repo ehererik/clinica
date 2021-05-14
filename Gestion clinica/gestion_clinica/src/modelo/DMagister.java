@@ -44,4 +44,10 @@ public class DMagister extends DecoratorPosgrado
 	{
 		return null;
 	}
+	
+	@Override
+	public String getDni()
+	{
+		return encapsulado.getDni();
+	}
 }

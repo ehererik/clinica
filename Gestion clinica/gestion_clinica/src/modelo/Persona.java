@@ -25,7 +25,7 @@ public abstract class Persona implements Cloneable
 
 	public String getNombre()
 	{
-		return nombre + apellido;
+		return nombre + " " + apellido;
 	}
 
 	public void setNombre(String nombre)

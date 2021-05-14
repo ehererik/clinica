@@ -1,7 +1,7 @@
 package modelo;
 
 public class Compartida extends Habitacion {
-    public Compartida(double d) {
-        super(d);
+    public Compartida(double costoBase) {
+        super(costoBase);
     }
 }

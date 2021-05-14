@@ -34,12 +34,12 @@ public class Prestacion implements IPrestacion{
 		return this.cantidad*this.prestacion.getValorUnitarioPrestacion();
 	}
 
-	public double valorConsulta() {
-		// TODO Auto-generated method stub
-		return 20;
-	}
-
 	
+	
+	@Override
+	public String toString() {
+		return this.getClavePrimaria()+"     "+this.getValorUnitarioPrestacion()+"        "+this.cantidad+"        $"+this.getSubTotal();
+	}
 	
 	
 }

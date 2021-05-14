@@ -1,111 +1,291 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+import java.util.Random;
 
+import excepciones.MedicoNoEncontradoException;
+import excepciones.MismoDniExcepcion;
 import excepciones.PacienteInvalidoException;
-import modulos.Atencion;
-import modulos.Datos;
-import modulos.Ingreso;
-import modulos.Recepcion;
+import excepciones.PacienteNoEncontradoExcepcion;
 
 public class Clinica
 {
+	private static Clinica instance = null;
 	private String nombre;
-	private Datos datos = new Datos();
-	private Recepcion recepcion = new Recepcion();
-	private Ingreso ingreso = new Ingreso();
-	private Atencion atencion = new Atencion();
+
+	HashMap<String, Paciente> pacientes = new HashMap<String, Paciente>();
+	HashMap<String, Paciente> atencion = new HashMap<String, Paciente>();
+	HashMap<String, IMedico> medicos = new HashMap<String, IMedico>();
+	private Queue<Paciente> colaDeEspera = new LinkedList<>();
+	private Sala_privada salaPriv;
+	private Patio pat;
+	private static int nroORden = 0;
+	private static GregorianCalendar horaActual = new GregorianCalendar();
+
 	ArrayList<Factura> facturas = new ArrayList<>();
 
-	public Clinica()
+	public static Clinica getInstance()
+	{
+		if (instance == null)
+			instance = new Clinica();
+		return instance;
+	}
+
+	private Clinica()
 	{
 		super();
+		salaPriv = Sala_privada.getInstace();
+		pat = Patio.getInstance();
 	}
 
-	public void altaPaciente(Paciente p)
+	public void agregarMedico(IMedico medico) throws MismoDniExcepcion
 	{
-		this.recepcion.peticionAlta(this.datos, p);
+		if (this.medicos.get(medico.getDni()) != null)
+			throw new MismoDniExcepcion(medico.getDni());
+		else
+			this.medicos.put(medico.getDni(), medico);
 	}
 
-	public Paciente consultaPaciente(String dni)
+	public void removerMedico(String dni) throws MedicoNoEncontradoException
 	{
-		return this.recepcion.peticionConsulta(this.datos, dni);
+		if (this.medicos.remove(dni) == null)
+			throw new MedicoNoEncontradoException("El medico no forma parte del hospital", dni);
 	}
 
-	public void bajaPaciente(String dni)
+	public void altaPaciente(Paciente p) throws MismoDniExcepcion
 	{
-		this.recepcion.peticionBaja(this.datos, dni);
+		if (this.pacientes.get(p.getDni()) != null)
+			throw new MismoDniExcepcion(p.getDni());
+		else
+			this.pacientes.put(p.getDni(), p);
+		System.out.println("Paciente agregado con exito");
 	}
 
-	public void modNyA(String dni, String nom, String ape)
+	public IMedico medicoAleatorio()
 	{
-		this.recepcion.peticionModNyA(this.datos, dni, nom, ape);
+		IMedico medico = null;
+		String[] cad = (String[]) medicos.keySet().toArray();
+		String key = (String)cad[(int)Math.floor(Math.random()*cad.length)];
+		medico = this.medicos.get(key);
+		return medico;
 	}
-
-	public void modDom(String dni, String dom)
+	
+	public Paciente consultarPaciente(String dni) throws PacienteNoEncontradoExcepcion
 	{
-		this.recepcion.peticionModDom(this.datos, dni, dom);
-	}
-
-	public void modTel(String dni, String tel)
-	{
-		this.recepcion.peticionModTel(this.datos, dni, tel);
-	}
-
-	public void ingresarPaciente(Paciente p)
-	{
-		this.recepcion.ingresarPaciente(p, this.ingreso);
-	}
-
-	public void atenderProxPaciente()
-	{
-		this.ingreso.atenderPaciente(this.atencion);
-	}
-
-	public void muestraPacienteSalaPriv()
-	{
-		this.ingreso.muestraPacSalaPriv();
-	}
-
-	public void muestraPacientesPatio()
-	{
-		this.ingreso.muestraPacPatio();
-	}
-
-	public void muestraPacientesEnAtencion()
-	{
-		this.atencion.muestraPacientes();
-	}
-
-///////////////////////////// MODULO DE EGRESO Y FACTURACION /////////////////////////////////////////////////////////////	
-	public void darAltaYFacturar(Paciente paciente, ArrayList<Paciente> pacientes) throws PacienteInvalidoException
-	{
-
-		// ArrayList<Prestacion> prestaciones = new ArrayList<>(); no va, lo recibo por
-		// paramtero
-
-		int i = 0;
-		int n = pacientes.size();
-
-		if (i < n && !(pacientes.get(i).equals(paciente))) // busca el paciente recibo
-			i++;
-
-		if (i == n)
+		Paciente p1;
+		p1 = null;
+		try
 		{
-			throw new PacienteInvalidoException("El paciente que desea dar del alta no se encuentra en la clinica",
-					paciente); // pasa la excepcion a erik
+			if (!this.pacientes.isEmpty())
+			{
+				p1 = this.pacientes.get(dni);
+				if (p1 != null)
+					p1 = (Paciente) p1.clone();
+			}
+		} catch (CloneNotSupportedException e)
+		{
+		}
+		if (p1 == null)
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.", dni);
+		else
+			return p1;
+	}
+
+	public void removerPaciente(String dni) throws PacienteNoEncontradoExcepcion
+	{
+		if (this.pacientes.remove(dni) == null)
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.", dni);
+
+	}
+
+	public void modPacienteNomyApe(String dni, String nom, String ape) throws PacienteNoEncontradoExcepcion
+	{
+		Paciente p1;
+		p1 = null;
+		try
+		{
+			if (!this.pacientes.isEmpty())
+				p1 = (Paciente) this.pacientes.get(dni).clone();
+		} catch (CloneNotSupportedException e)
+		{
+		}
+		if (p1 == null)
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.", dni);
+
+		else
+		{
+			p1.setNombre(nom);
+			p1.setApellido(ape);
+			this.pacientes.remove(p1.getDni());
+			this.pacientes.put(p1.getDni(), p1);
+		}
+	}
+
+	public void modPacienteDom(String dni, String dom) throws PacienteNoEncontradoExcepcion
+	{
+		Paciente p1;
+		p1 = null;
+		try
+		{
+			if (!this.pacientes.isEmpty())
+				p1 = (Paciente) this.pacientes.get(dni).clone();
+		} catch (CloneNotSupportedException e)
+		{
+		}
+		if (p1 == null)
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.", dni);
+
+		else
+		{
+			p1.setDomicilio(dom);
+			this.pacientes.remove(p1.getDni());
+			this.pacientes.put(p1.getDni(), p1);
+		}
+	}
+
+	public void modPacienteTel(String dni, String tel) throws PacienteNoEncontradoExcepcion
+	{
+		Paciente p1;
+		p1 = null;
+		try
+		{
+			if (!this.pacientes.isEmpty())
+				p1 = (Paciente) this.pacientes.get(dni).clone();
+		} catch (CloneNotSupportedException e)
+		{
+		}
+		if (p1 == null)
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.", dni);
+
+		else
+		{
+			p1.setTelefono(tel);
+			this.pacientes.remove(p1.getDni());
+			this.pacientes.put(p1.getDni(), p1);
+		}
+	}
+
+	public void ingresaPaciente(Paciente p)
+	{
+		Paciente pSalaPriv;
+		pSalaPriv = null;
+		colaDeEspera.add(p);
+		p.setNroOrden(nroORden++);
+		pSalaPriv = salaPriv.devuelvePaciente();
+		if (p.establecerPriotodad(pSalaPriv))
+		{
+			salaPriv.AgregaPaciente(p);
+			if (pSalaPriv != null)
+				pat.AgregaPaciente(pSalaPriv);
+		} else
+			pat.AgregaPaciente(p);
+	}
+
+	public void atenderPaciente()
+	{
+		Paciente p = null;
+		try
+		{
+			p = colaDeEspera.remove();
+			atencion.put(p.getDni(), p);
+			try
+			{
+				this.pat.QuitaPaciente(p.getDni());
+			} catch (PacienteNoEncontradoExcepcion e)
+			{
+				try
+				{
+					this.salaPriv.QuitaPaciente(e.getDato());
+				} catch (PacienteNoEncontradoExcepcion f)
+				{
+					System.out.println("Paciente no encontrado en Ingreso");
+				}
+			}
+		} catch (NoSuchElementException e)
+		{
+			System.out.println("No quedan pacientes por ser atendidos");
 		}
 
-		GregorianCalendar fecha = new GregorianCalendar();
-		// poner el avance de tiempo
-		facturas.add(new Factura(fecha, paciente, paciente.getPrestaciones)); // Crea la factura del paciente
+	}
+
+	public void removerPacienteAtencion(String dni)
+	{
+		atencion.remove(dni);
+	}
+
+	public void muestraPacientesAtencion()
+	{
+		Paciente p;
+		p = null;
+		Iterator<Paciente> it = this.atencion.values().iterator();
+		if (this.atencion.isEmpty())
+			System.out.println("Atencion vacia");
+		else
+		{
+			System.out.println("Pacientes en atecion");
+			while (it.hasNext())
+			{
+				try
+				{
+					p = (Paciente) it.next().clone();
+				} catch (CloneNotSupportedException e)
+				{
+				}
+				System.out.println(p.getNombre() + " " + p.getDni());
+			}
+		}
+	}
+
+	public void muestraPacSalaPriv()
+	{
+		this.salaPriv.muestraPaciente();
+	}
+
+	public void muestraPacPatio()
+	{
+		this.pat.muestraPacientes();
+	}
+
+	public void agregarPrestacionAPaciente(Paciente paciente, Prestacion prestacion)
+	{
+		paciente.agregarPrestacion(prestacion);
+	}
+
+	public void setNombre(String nombre)
+	{
+		this.nombre = nombre;
+	}
+
+	public String getNombre()
+	{
+		return this.nombre;
+	}
+
+///////////////////////////// MODULO DE EGRESO Y FACTURACION////////////////////////////////////////////////////////// 
+	public void darAltaYFacturar(Paciente paciente) throws PacienteInvalidoException
+	{
+
+		if (this.atencion.get(paciente.getDni()).equals(null))
+		{
+			throw new PacienteInvalidoException("El paciente no se encuentra en la clinica", paciente);
+		}
+
+		Clinica.horaActual.add(Calendar.HOUR, (int) Math.floor(Math.random() * (9 - 7 + 1) + 7));
+
+		facturas.add(new Factura(horaActual, paciente, paciente.getPrestaciones())); // Crea la factura del paciente
 
 		System.out.println("       Prestacion              Valor           Cantidad               Subtotal    ");
 
 		System.out.println(facturas.get(facturas.size() - 1).toString()); // Muestra factura del paciente que se ira de
 																			// la clinica
-		pacientes.remove(i); // saco al paciente de la clinica
+		this.atencion.remove(paciente.getDni()); // saco al paciente de la clinica
 	}
 
 ///////////////////////////// REPORTE DE ACTIVIDAD MEDICA /////////////////////////////////////////////////////////////		

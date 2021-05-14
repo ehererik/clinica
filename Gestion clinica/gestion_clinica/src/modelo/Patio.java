@@ -7,7 +7,15 @@ import excepciones.PacienteNoEncontradoExcepcion;
 
 public class Patio extends Sala {
     HashMap<String,Paciente> pacientes=new HashMap<String,Paciente>();
-    public Patio() {
+    private static Patio _instance=null;
+    
+    public static Patio getInstance(){
+        if(_instance==null)
+            _instance =new Patio();
+      return  _instance;
+    }
+    
+    private Patio() {
         super();
     }
 
@@ -21,7 +29,7 @@ public class Patio extends Sala {
         if(this.pacientes.get(dni)!=null)
              this.pacientes.remove(dni);
         else
-            throw new PacienteNoEncontradoExcepcion(dni);
+            throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en el hospital.",dni);
     }
     public HashMap<String,Paciente> listaPacientes(){
         Paciente p;
@@ -49,7 +57,7 @@ public class Patio extends Sala {
                     p = (Paciente) it.next().clone();
                 } catch (CloneNotSupportedException e) {
                 }
-                System.out.println(p.getNombre()+" "+p.getDni()+" nro orden."+p.getNroOrden());
+                System.out.println(p.getNombre()+" dni: "+p.getDni()+" nro orden."+p.getNroOrden());
             }
         }
     }

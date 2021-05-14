@@ -58,23 +58,27 @@ public class Factura
 		{ // el medico atendio al paciente
 			subTotal = this.prestaciones.get(i).getSubTotal();
 			System.out.println(
-					this.paciente.getNombre() + "      $" + this.prestaciones.get(i).valorConsulta() + "         "
+					this.paciente.getNombre() + "      $" + this.prestaciones.get(i).getValorUnitarioPrestacion() * 0.8 + "         "
 							+ this.fecha + "        " + this.prestaciones.get(i).getCantidad() + "       $" + subTotal);
 		}
 	}
 
 	@Override
 	public String toString()
-	{ // podria hacerlo mejor con StringBuilder
-		// int año = fecha.get(Calendar.YEAR);
-		// int mes = fecha.get(Calendar.MONTH);
-		// int dia = fecha.get(Calendar.DAY_OF_MONTH);
-		// int hora = fecha.get(Calendar.HOUR_OF_DAY);
-		// int minuto = fecha.get(Calendar.MINUTE);
-		// int segundo = fecha.get(Calendar.SECOND);
+	{ 
 		return "Numero de factura: " + this.numFactura + "\nFecha: " + this.fecha + "\nPaciente: "
 				+ this.paciente.getNombre() + "\n---------- Listado de prestaciones --------\n"
 				+ this.prestaciones.toString();
 	}
-
+	
+	public String toStringPrestaciones() {
+		StringBuilder sb = new StringBuilder();
+		java.util.Iterator<Prestacion> it = this.prestaciones.iterator();
+		while(it.hasNext()) {
+			sb.append(it.next().toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
 }
