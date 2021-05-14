@@ -10,7 +10,9 @@ import excepciones.PacienteNoEncontradoExcepcion;
 import modelo.Clinica;
 import modelo.Compartida;
 import modelo.Habitacion;
+import modelo.IMedico;
 import modelo.MedicoFactory;
+import modelo.Paciente;
 import modelo.PacienteFactory;
 import modelo.Prestacion;
 import modelo.Privada;
@@ -161,47 +163,108 @@ public class Prueba
 		unaClinica.muestraPacPatio();
 		unaClinica.muestraPacSalaPriv();
 		System.out.println("///////////////");
-		
+
 		unaClinica.atenderPaciente();
 		unaClinica.muestraPacientesAtencion();
 		System.out.println("///////////////");
-		
+
 		unaClinica.atenderPaciente();
 		unaClinica.muestraPacientesAtencion();
 		System.out.println("///////////////");
-		
+
 		unaClinica.atenderPaciente();
 		unaClinica.muestraPacientesAtencion();
 		System.out.println("///////////////");
-		
+
 		unaClinica.muestraPacPatio();
 		unaClinica.muestraPacSalaPriv();
 		System.out.println("///////////////");
-		
+
 		unaClinica.atenderPaciente();
 		System.out.println("///////////////");
-		
+
 		Habitacion h1 = new Compartida(1000);
 		Habitacion h2 = new Privada(2000);
 		Habitacion h3 = new Terapia_Intesiva(5000);
-		
-		
-		System.out.println(unaClinica.medicoAleatorio().toString());
-		
-		/*Prestacion p1 = new Prestacion(unaClinica.,3);
-		Prestacion p2 = new Prestacion(m2,7);
-		Prestacion p3 = new Prestacion(m3,1);
-		Prestacion p4 = new Prestacion(m3,5);
-		Prestacion p5 = new Prestacion(m1,10);
-		
-		Prestacion p6 = new Prestacion(h1,20);
-		Prestacion p7 = new Prestacion(h2,13);
-		Prestacion p8 = new Prestacion(h2,3);
-		Prestacion p9 = new Prestacion(h3,5);
-		Prestacion p10 = new Prestacion(h1,4);*/
-		
-		
-		
+
+		IMedico m1 = unaClinica.devuelveMedico("12345678");
+		IMedico m2 = unaClinica.devuelveMedico("98431800");
+		IMedico m3 = unaClinica.devuelveMedico("1465278");
+
+		Prestacion p1 = new Prestacion(m1, 3);
+		Prestacion p2 = new Prestacion(m2, 7);
+		Prestacion p3 = new Prestacion(m3, 1);
+		Prestacion p4 = new Prestacion(m3, 5);
+		Prestacion p5 = new Prestacion(m1, 10);
+
+		Prestacion p6 = new Prestacion(h1, 20);
+		Prestacion p7 = new Prestacion(h2, 13);
+		Prestacion p8 = new Prestacion(h2, 3);
+		Prestacion p9 = new Prestacion(h3, 5);
+		Prestacion p10 = new Prestacion(h1, 4);
+
+		Paciente paciente1 = null, paciente2 = null, paciente3 = null;
+
+		try
+		{
+			paciente1 = unaClinica.consultarPaciente("1");
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			System.out.println("El paciente con dni " + e.getDni() + " no esta en el hospital ");
+		}
+		try
+		{
+			paciente2 = unaClinica.consultarPaciente("2");
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			System.out.println("El paciente con dni " + e.getDni() + " no esta en el hospital ");
+		}
+		try
+		{
+			paciente3 = unaClinica.consultarPaciente("3");
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			System.out.println("El paciente con dni " + e.getDni() + " no esta en el hospital ");
+		}
+
+		paciente1.agregarPrestacion(p1);
+		paciente1.agregarPrestacion(p5);
+		paciente1.agregarPrestacion(p9);
+		paciente1.agregarPrestacion(p2);
+
+		paciente2.agregarPrestacion(p10);
+		paciente2.agregarPrestacion(p1);
+		paciente2.agregarPrestacion(p4);
+		paciente2.agregarPrestacion(p8);
+		paciente2.agregarPrestacion(p6);
+
+		paciente3.agregarPrestacion(p2);
+
+		try
+		{
+			unaClinica.darAltaYFacturar(paciente2);
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			System.out.println(e.getMessage());
+			System.out.println("PACIENTE INVALIDO: " + e.getPaciente());
+		}
+
+		try
+		{
+			unaClinica.darAltaYFacturar(paciente1);
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			e.printStackTrace();
+		}
+
+		try
+		{
+			unaClinica.darAltaYFacturar(paciente3);
+		} catch (PacienteNoEncontradoExcepcion e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -1,12 +1,23 @@
 package modelo;
 
+/**
+ * @author Agustin <br>
+ *         Clase que se extiende de "DecoratorPosgrado" que permite que su
+ *         atributo encapsulado de tipo "IMedico" tenga un posgrado de
+ *         tipo Magister
+ *
+ */
 public class DMagister extends DecoratorPosgrado
 {
 	protected DMagister(IMedico encapsulado)
 	{
 		super(encapsulado);
 	}
-
+	
+	/**
+	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,
+	 * incrementado en un 5%
+	 */
 	@Override
 	public double getHonorarioBasico()
 	{
@@ -21,33 +32,4 @@ public class DMagister extends DecoratorPosgrado
 		return this.encapsulado.toString() + ", posgrado=magister";
 	}
 
-	@Override
-	public String getNombre()
-	{
-		return this.encapsulado.getNombre();
-	}
-
-	@Override
-	public String getPrestacion()
-	{
-		return null;
-	}
-
-	@Override
-	public double getValorUnitarioPrestacion()
-	{
-		return 0;
-	}
-
-	@Override
-	public String getClavePrimaria()
-	{
-		return null;
-	}
-	
-	@Override
-	public String getDni()
-	{
-		return encapsulado.getDni();
-	}
 }

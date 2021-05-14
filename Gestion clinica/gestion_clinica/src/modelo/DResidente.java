@@ -1,5 +1,12 @@
 package modelo;
 
+/**
+ * @author Agustin <br>
+ *         Clase que se extiende de "DecoratorContratacion" que permite que su
+ *         atributo encapsulado de tipo "IMedico" tenga una contratacion de tipo
+ *         residente (temporario)
+ *
+ */
 public class DResidente extends DecoratorContratacion
 {
 	protected DResidente(IMedico encapsulado)
@@ -7,6 +14,10 @@ public class DResidente extends DecoratorContratacion
 		super(encapsulado);
 	}
 
+	/**
+	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,
+	 * incrementado en un 5%
+	 */
 	@Override
 	public double getHonorarioBasico()
 	{
@@ -14,42 +25,11 @@ public class DResidente extends DecoratorContratacion
 		sueldo += sueldo * 0.05;
 		return sueldo;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return this.encapsulado.toString() + ", contratacion=residente]";
 	}
-	
-	@Override
-	public String getPrestacion()
-	{
-		return "Nombre del medico: " + this.getNombre();
-	}
 
-	@Override
-	public double getValorUnitarioPrestacion()
-	{
-		double honorario = this.getHonorarioBasico();
-		return honorario * INCREMENTO; 
-	}
-
-	@Override
-	public String getClavePrimaria()
-	{
-		return this.getNombre();
-	}
-
-	@Override
-	public String getNombre()
-	{
-		return this.encapsulado.getNombre();
-	}
-
-	@Override
-	public String getDni()
-	{
-		return encapsulado.getDni();
-	}
-	
 }

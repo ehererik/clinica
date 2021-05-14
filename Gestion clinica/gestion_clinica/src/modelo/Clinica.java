@@ -8,11 +8,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
-import java.util.Random;
 
 import excepciones.MedicoNoEncontradoException;
 import excepciones.MismoDniExcepcion;
-import excepciones.PacienteInvalidoException;
 import excepciones.PacienteNoEncontradoExcepcion;
 
 public class Clinica
@@ -67,14 +65,13 @@ public class Clinica
 			this.pacientes.put(p.getDni(), p);
 		System.out.println("Paciente agregado con exito");
 	}
-
-	public IMedico medicoAleatorio()
+	
+	public IMedico devuelveMedico(String dni)
 	{
-		IMedico medico = null;
-		String[] cad = (String[]) medicos.keySet().toArray();
-		String key = (String)cad[(int)Math.floor(Math.random()*cad.length)];
-		medico = this.medicos.get(key);
-		return medico;
+		IMedico m = null;
+		
+		
+		return this.medicos.get(dni);
 	}
 	
 	public Paciente consultarPaciente(String dni) throws PacienteNoEncontradoExcepcion
@@ -202,7 +199,7 @@ public class Clinica
 			{
 				try
 				{
-					this.salaPriv.QuitaPaciente(e.getDato());
+					this.salaPriv.QuitaPaciente(e.getDni());
 				} catch (PacienteNoEncontradoExcepcion f)
 				{
 					System.out.println("Paciente no encontrado en Ingreso");
@@ -269,22 +266,23 @@ public class Clinica
 	}
 
 ///////////////////////////// MODULO DE EGRESO Y FACTURACION////////////////////////////////////////////////////////// 
-	public void darAltaYFacturar(Paciente paciente) throws PacienteInvalidoException
+	public void darAltaYFacturar(Paciente paciente)  throws PacienteNoEncontradoExcepcion
 	{
 
 		if (this.atencion.get(paciente.getDni()).equals(null))
 		{
-			throw new PacienteInvalidoException("El paciente no se encuentra en la clinica", paciente);
+			throw new PacienteNoEncontradoExcepcion("El paciente no se encuentra en la clinica", paciente);
 		}
 
 		Clinica.horaActual.add(Calendar.HOUR, (int) Math.floor(Math.random() * (9 - 7 + 1) + 7));
 
 		facturas.add(new Factura(horaActual, paciente, paciente.getPrestaciones())); // Crea la factura del paciente
-
-		System.out.println("       Prestacion              Valor           Cantidad               Subtotal    ");
-
-		System.out.println(facturas.get(facturas.size() - 1).toString()); // Muestra factura del paciente que se ira de
+		
+		facturas.get(facturas.size() - 1).muestraFactura();                 // Muestra factura del paciente que se ira de
 																			// la clinica
+		
+		System.out.println("TOTAL: $" + this.facturas.get(facturas.size() - 1).totalFactura() );
+		
 		this.atencion.remove(paciente.getDni()); // saco al paciente de la clinica
 	}
 

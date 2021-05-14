@@ -1,5 +1,10 @@
 package modelo;
 
+/**
+ * @author Agustin <br>
+ *         Clase que se extiende de Medico que indica que la especialidad de
+ *         este es clinico
+ */
 public class Clinico extends Medico
 {
 
@@ -7,7 +12,11 @@ public class Clinico extends Medico
 	{
 		super(nombre, apellido, dni, domicilio, ciudad, telefono, sueldoBase);
 	}
-
+	
+	/**
+	 * Metodo que devuelve un double que es el honorario basico del medico aumentado
+	 * en un 5%.
+	 */
 	@Override
 	public double getHonorarioBasico()
 	{

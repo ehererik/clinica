@@ -4,10 +4,12 @@ public abstract class Habitacion implements IPrestacion
 {
 	double costoBase;
 	private int numHabitacion;
+	private static int cantHabitaciones = 0;
 
 	public Habitacion(double costoBase)
 	{
 		this.costoBase = costoBase;
+		this.numHabitacion = ++Habitacion.cantHabitaciones;
 	}
 
 	public int getNumHabitacion()
@@ -31,7 +33,7 @@ public abstract class Habitacion implements IPrestacion
 	public String getClavePrimaria()
 	{
 		String clave = Integer.toString(this.numHabitacion);
-		return clave;
+		return "Habitacion Nº " + clave;
 	}
 
 	private double costoHabitacion()

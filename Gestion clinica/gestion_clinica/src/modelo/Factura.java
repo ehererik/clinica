@@ -7,7 +7,8 @@ import java.util.GregorianCalendar;
 public class Factura
 {
 
-	private int numFactura = 0;
+	private static int cantFacturas = 0;
+	private int numFactura;
 	GregorianCalendar fecha;
 	Paciente paciente;
 	ArrayList<Prestacion> prestaciones = new ArrayList<>();
@@ -17,7 +18,8 @@ public class Factura
 		this.fecha = fecha;
 		this.paciente = paciente;
 		this.prestaciones = prestaciones;
-		this.numFactura++;
+		Factura.cantFacturas++;
+		this.numFactura = Factura.cantFacturas;
 	}
 
 	public ArrayList<Prestacion> getPrestaciones()
@@ -57,28 +59,46 @@ public class Factura
 		if (i < n)
 		{ // el medico atendio al paciente
 			subTotal = this.prestaciones.get(i).getSubTotal();
-			System.out.println(
-					this.paciente.getNombre() + "      $" + this.prestaciones.get(i).getValorUnitarioPrestacion() * 0.8 + "         "
-							+ this.fecha + "        " + this.prestaciones.get(i).getCantidad() + "       $" + subTotal);
+			System.out.println(this.paciente.getNombre() + "      $"
+					+ this.prestaciones.get(i).getValorUnitarioPrestacion() * 0.8 + "         " + this.fecha
+					+ "        " + this.prestaciones.get(i).getCantidad() + "       $" + subTotal);
 		}
 	}
 
-	@Override
-	public String toString()
-	{ 
-		return "Numero de factura: " + this.numFactura + "\nFecha: " + this.fecha + "\nPaciente: "
+
+	public void muestraFactura()
+	{
+		System.out.println("Numero de factura: " + this.numFactura + "\nFecha: " + this.fecha + "\nPaciente: "
 				+ this.paciente.getNombre() + "\n---------- Listado de prestaciones --------\n"
-				+ this.prestaciones.toString();
+				+ "       Prestacion              Valor           Cantidad               Subtotal    ");
+		for (int i = 0; i < this.prestaciones.size(); i++)
+		{
+			this.prestaciones.get(i).mostrarPrestacion();
+		}
+
 	}
-	
-	public String toStringPrestaciones() {
+
+	public String toStringPrestaciones()
+	{
 		StringBuilder sb = new StringBuilder();
 		java.util.Iterator<Prestacion> it = this.prestaciones.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext())
+		{
 			sb.append(it.next().toString());
 			sb.append("\n");
 		}
 		return sb.toString();
 	}
-	
+
+	public double totalFactura()
+	{
+
+		double total = 0;
+		for (int i = 0; i < this.prestaciones.size(); i++)
+		{
+			total += this.prestaciones.get(i).getSubTotal();
+		}
+		return total;
+	}
+
 }
