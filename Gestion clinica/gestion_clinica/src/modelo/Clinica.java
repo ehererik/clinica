@@ -66,11 +66,10 @@ public class Clinica
 		System.out.println("Paciente agregado con exito");
 	}
 	
-	public IMedico devuelveMedico(String dni)
+	public IMedico devuelveMedico(String dni) throws MedicoNoEncontradoException
 	{
-		IMedico m = null;
-		
-		
+		if(this.medicos.get(dni) == null)
+			throw new MedicoNoEncontradoException("El medico no forma parte del hospital", dni);	
 		return this.medicos.get(dni);
 	}
 	

@@ -1,5 +1,6 @@
 package prueba;
 
+import excepciones.MedicoNoEncontradoException;
 import excepciones.MismoDniExcepcion;
 import excepciones.NoExisteContratacionException;
 import excepciones.NoExisteEspecialidadException;
@@ -187,9 +188,33 @@ public class Prueba
 		Habitacion h2 = new Privada(2000);
 		Habitacion h3 = new Terapia_Intesiva(5000);
 
-		IMedico m1 = unaClinica.devuelveMedico("12345678");
-		IMedico m2 = unaClinica.devuelveMedico("98431800");
-		IMedico m3 = unaClinica.devuelveMedico("1465278");
+		IMedico m1 = null;
+		IMedico m2 = null;
+		IMedico m3 = null;
+
+		try
+		{
+			m1 = unaClinica.devuelveMedico("12345678");
+		} catch (MedicoNoEncontradoException e1)
+		{
+			e1.getMessage();
+		}
+
+		try
+		{
+			m2 = unaClinica.devuelveMedico("98431800");
+		} catch (MedicoNoEncontradoException e1)
+		{
+			e1.getMessage();
+		}
+
+		try
+		{
+			m3 = unaClinica.devuelveMedico("1465278");
+		} catch (MedicoNoEncontradoException e1)
+		{
+			e1.getMessage();
+		}
 
 		Prestacion p1 = new Prestacion(m1, 3);
 		Prestacion p2 = new Prestacion(m2, 7);
