@@ -13,6 +13,8 @@ public class DMagister extends DecoratorPosgrado
 	{
 		super(encapsulado);
 	}
+
+	
 	
 	/**
 	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,

@@ -35,5 +35,14 @@ public abstract class Paciente extends Persona implements PrioridadAsignacion
 	{
 		return prestaciones;
 	}
+
+	@Override
+	public String toString() {
+		return "Nombre: "+super.getNombre()+",  DNI: "+super.getDni();
+	}
+	
+	
+	
+	
 	
 }

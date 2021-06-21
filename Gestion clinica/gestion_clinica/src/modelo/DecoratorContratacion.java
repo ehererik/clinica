@@ -15,13 +15,14 @@ public abstract class DecoratorContratacion implements IMedico
 	{
 		this.encapsulado = encapsulado;
 	}
-
+	
 	@Override
 	public String getPrestacion()
 	{
 		return "Nombre del medico: " + this.getNombre();
 	}
-
+	
+	
 	/**
 	 * Devuelve el honorario final del medico encapsulado (con todos sus respectivos
 	 * aumentos) incrementado en un 20%<br>
@@ -30,11 +31,11 @@ public abstract class DecoratorContratacion implements IMedico
 	public double getValorUnitarioPrestacion()
 	{
 		double honorario = this.getHonorarioBasico();
-		return honorario * INCREMENTO;
+		return honorario * INCREMENTO; 
 	}
 
 	@Override
-	public String getClavePrimaria()
+	public String getClavePrimariaString()
 	{
 		return this.getNombre();
 	}

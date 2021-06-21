@@ -3,6 +3,11 @@ package modelo;
 
 import excepciones.PacienteNoEncontradoExcepcion;
 
+
+/**
+ *  *  Clase sala_privada uso de patron singleton ya que se usa una sola instancia contiene los pacientes ingrsados en la sala privada
+
+ */
 public class Sala_privada extends Sala{
         
     Paciente pac;

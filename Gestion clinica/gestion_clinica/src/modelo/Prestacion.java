@@ -25,9 +25,9 @@ public class Prestacion implements IPrestacion
 	}
 
 	@Override
-	public String getClavePrimaria()
+	public String getClavePrimariaString()
 	{
-		return this.prestacion.getClavePrimaria();
+		return this.prestacion.getClavePrimariaString();
 	}
 
 	public int getCantidad()
@@ -42,7 +42,7 @@ public class Prestacion implements IPrestacion
 	
 	public void mostrarPrestacion()
 	{
-		System.out.printf("%19s %17.2f %14d                 $ %8.2f %n",this.getClavePrimaria(),this.getValorUnitarioPrestacion(),this.cantidad,this.getSubTotal());
+		System.out.printf("%19s %17.2f %14d                 $ %8.2f %n",this.getClavePrimariaString(),this.getValorUnitarioPrestacion(),this.cantidad,this.getSubTotal());
 	}
 	
 	

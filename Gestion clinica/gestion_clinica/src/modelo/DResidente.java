@@ -1,5 +1,6 @@
 package modelo;
 
+
 /**
  * @author Agustin <br>
  *         Clase que se extiende de "DecoratorContratacion" que permite que su
@@ -14,6 +15,8 @@ public class DResidente extends DecoratorContratacion
 		super(encapsulado);
 	}
 
+	
+	
 	/**
 	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,
 	 * incrementado en un 5%
@@ -25,11 +28,11 @@ public class DResidente extends DecoratorContratacion
 		sueldo += sueldo * 0.05;
 		return sueldo;
 	}
-
+	
 	@Override
 	public String toString()
 	{
 		return this.encapsulado.toString() + ", contratacion=residente]";
 	}
-
+	
 }

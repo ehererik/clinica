@@ -27,11 +27,11 @@ public abstract class DecoratorPosgrado implements IMedico
 	{
 		return encapsulado.getDni();
 	}
-
+	
 	@Override
 	public String getPrestacion()
 	{
-		return null;
+		return null; 
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public abstract class DecoratorPosgrado implements IMedico
 	}
 
 	@Override
-	public String getClavePrimaria()
+	public String getClavePrimariaString()
 	{
 		return null;
 	}

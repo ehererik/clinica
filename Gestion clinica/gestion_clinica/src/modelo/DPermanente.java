@@ -1,5 +1,6 @@
 package modelo;
 
+
 /**
  * @author Agustin <br>
  *         Clase que se extiende de "DecoratorContratacion" que permite que su
@@ -9,11 +10,13 @@ package modelo;
  */
 public class DPermanente extends DecoratorContratacion
 {
+	
 	protected DPermanente(IMedico encapsulado)
 	{
 		super(encapsulado);
 	}
 
+	
 	/**
 	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,
 	 * incrementado en un 10%
@@ -31,5 +34,5 @@ public class DPermanente extends DecoratorContratacion
 	{
 		return this.encapsulado.toString() + ", contratacion=plantel permanente]";
 	}
-
+	
 }

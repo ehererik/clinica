@@ -1,10 +1,12 @@
 package modelo;
 
+
 /**
  * @author Agustin <br>
  *         Clase que se extiende de Medico que indica que la especialidad de
  *         este es clinico
  */
+
 public class Clinico extends Medico
 {
 
@@ -12,6 +14,8 @@ public class Clinico extends Medico
 	{
 		super(nombre, apellido, dni, domicilio, ciudad, telefono, sueldoBase);
 	}
+
+	
 	
 	/**
 	 * Metodo que devuelve un double que es el honorario basico del medico aumentado
@@ -32,23 +36,7 @@ public class Clinico extends Medico
 				+ ", domicilio=" + this.getDni() + ", ciudad=" + this.getCiudad() + ", telefono=" + this.getTelefono();
 	}
 
-	@Override
-	public String getPrestacion()
-	{
-		return null;
-	}
-
-	@Override
-	public double getValorUnitarioPrestacion()
-	{
-		return 0;
-	}
-
-	@Override
-	public String getClavePrimaria()
-	{
-		return null;
-	}
+	
 	
 	
 }

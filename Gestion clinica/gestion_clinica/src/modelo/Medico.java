@@ -16,4 +16,22 @@ public abstract class Medico extends Persona implements IMedico
 		return this.honorarioBasico;
 	}
 
+	
+	@Override
+	public String getPrestacion()
+	{
+		return null;
+	}
+
+	@Override
+	public double getValorUnitarioPrestacion()
+	{
+		return 0;
+	}
+
+	@Override
+	public String getClavePrimariaString()
+	{
+		return null;
+	}
 }

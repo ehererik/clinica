@@ -1,5 +1,6 @@
 package modelo;
 
+
 /**
  * @author Agustin <br>
  *         Clase que se extiende de "DecoratorPosgrado" que permite que su
@@ -14,6 +15,7 @@ public class DDoctor extends DecoratorPosgrado
 		super(encapsulado);
 	}
 
+	
 	/**
 	 * Metodo que devuelve en un double, el honorario de su atributo encapsulado,
 	 * incrementado en un 10%

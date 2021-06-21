@@ -1,19 +1,24 @@
 package modelo;
 
+
+
+
 /**
  * @author Agustin <br>
  *         Clase que se extiende de Medico que indica que la especialidad de
  *         este es cirujano
  */
+
 public class Cirujano extends Medico
 {
 
-	protected Cirujano(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono,
-			double sueldoBase)
+	protected Cirujano(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, double sueldoBase)
 	{
 		super(nombre, apellido, dni, domicilio, ciudad, telefono, sueldoBase);
 	}
 
+	
+	
 	/**
 	 * Metodo que devuelve un double que es el honorario basico del medico aumentado
 	 * en un 10%.
@@ -29,27 +34,9 @@ public class Cirujano extends Medico
 	@Override
 	public String toString()
 	{
-		return "Cirujano [sueldoBase=" + this.getHonorarioBasico() + ", nombre=" + this.getNombre() + ", apellido="
-				+ this.getApellido() + ", dni=" + this.getDni() + ", domicilio=" + this.getDomicilio() + ", ciudad="
-				+ this.getCiudad() + ", telefono=" + this.getTelefono();
+		return "Cirujano [sueldoBase=" + this.getHonorarioBasico() + ", nombre=" + this.getNombre() + ", apellido=" + this.getApellido() + ", dni=" + this.getDni()
+				+ ", domicilio=" + this.getDomicilio() + ", ciudad=" + this.getCiudad() + ", telefono=" + this.getTelefono();
 	}
 
-	@Override
-	public String getPrestacion()
-	{
-		return null;
-	}
-
-	@Override
-	public double getValorUnitarioPrestacion()
-	{
-		return 0;
-	}
-
-	@Override
-	public String getClavePrimaria()
-	{
-		return null;
-	}
-
+	
 }

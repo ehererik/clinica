@@ -30,7 +30,7 @@ public abstract class Habitacion implements IPrestacion
 	}
 
 	@Override
-	public String getClavePrimaria()
+	public String getClavePrimariaString()
 	{
 		String clave = Integer.toString(this.numHabitacion);
 		return "Habitacion Nº " + clave;

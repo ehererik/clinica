@@ -5,6 +5,11 @@ import java.util.Iterator;
 
 import excepciones.PacienteNoEncontradoExcepcion;
 
+
+
+/**
+ *  Clase patio uso de patron singleton ya que se usa una sola instancia contiene los pacientes ingrsados en el patio
+ */
 public class Patio extends Sala {
     HashMap<String,Paciente> pacientes=new HashMap<String,Paciente>();
     private static Patio _instance=null;

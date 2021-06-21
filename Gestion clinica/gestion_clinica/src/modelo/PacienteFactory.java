@@ -1,7 +1,12 @@
 package modelo;
 
+
+
 public class PacienteFactory
 {
+	
+	
+	
 	public static Paciente getPaciente(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, String rangoEtario)
 	{
 		Paciente respuesta = null;
