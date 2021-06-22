@@ -22,9 +22,10 @@ public class AtendiendoState implements IState
 	}
 
 	@Override
-	public void volverAClinica()
+	public String volverAClinica()
 	{
-		this.ambulancia.setEstado(new TrasladandoState(this.ambulancia));
+		this.ambulancia.setEstado(new RegresandoSinPacienteState(this.ambulancia));
+		return "La ambulancia vuelve de una atencion a domicilio";
 	}
 
 	@Override

@@ -13,23 +13,26 @@ public class DisponibleState implements IState
 	public String atencionDomicilio()
 	{
 		this.ambulancia.setEstado(new AtendiendoState(this.ambulancia));
-		return null;
+		return "La ambulancia esta atendiendo a domicilio";
 	}
 
 	@Override
 	public String trasladoALaClinica()
 	{
-		this.ambulancia.setEstado(new RegresandoSinPacienteState(this.ambulancia));
-		return null;
+		this.ambulancia.setEstado(new TrasladandoState(this.ambulancia));
+		return "La ambulancia esta trasladando a la clinica";
 	}
 
 	@Override
-	public void volverAClinica(){}
+	public String volverAClinica()
+	{
+		return "La ambulancia ya se encuentra en la clinica, por lo que ya estaba disponible";
+	}
 
 	@Override
 	public String repararAmbulancia()
 	{
 		this.ambulancia.setEstado(new EnTallerState(this.ambulancia));
-		return null;
+		return "La ambulancia esta yendo al taller para ser arreglada";
 	}
 }

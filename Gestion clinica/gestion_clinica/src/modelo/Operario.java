@@ -2,10 +2,12 @@ package modelo;
 
 import util.Util;
 
-public class Operario implements Runnable
+public class Operario extends Persona implements Runnable
 {
 	private static Operario Instance; 
-	private Clinica clinica;
+	private Ambulancia ambulancia;
+	private int cantSolicitudes = 4;
+	private String accion;
 	
 	public static Operario getInstance()
 	{
@@ -14,26 +16,37 @@ public class Operario implements Runnable
 		return Operario.Instance;
 	}
 	
-	private Operario(){}
-	
-	
-	protected void setClinica(Clinica clinica)
+	private Operario()
 	{
-		this.clinica = clinica;
+		super();
 	}
 	
+	protected void setAmbulancia(Ambulancia amb)
+	{
+		this.ambulancia = amb;
+	}
+	
+	public void setCantSolicitudes(int cant)
+	{
+		this.cantSolicitudes = cant;
+	}
+	
+	public void setAccion(String accion)
+	{
+		this.accion = accion;
+		//this.setChanged();
+		//this.notifyObservers(this.accion);	
+	}
 	
 	@Override
 	public void run()
 	{
-		
-		for(int i=0; i<10 ; i++)
+		for(int i=0; i<this.cantSolicitudes ; i++)
 		{
 			Util.esperaRandom(3000);
-			this.clinica.repararAmbulancia();
-			Util.espera();
-			this.clinica.volverAClinica();
-			Util.esperaRandom(1000);
+			this.ambulancia.repararLaAmbulancia(this);
+			Thread htemp = new Thread(new Temporizador(this.ambulancia));
+			htemp.start();
 		}
 	}
 

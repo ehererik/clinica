@@ -13,7 +13,7 @@ public class RegresandoSinPacienteState implements IState
 	public String atencionDomicilio()
 	{
 		this.ambulancia.setEstado(new AtendiendoState(this.ambulancia));
-		return null;
+		return "La ambulancia esta atendiendo a domicilio";
 	}
 
 	@Override
@@ -23,9 +23,10 @@ public class RegresandoSinPacienteState implements IState
 	}
 
 	@Override
-	public void volverAClinica()
+	public String volverAClinica()
 	{
 		this.ambulancia.setEstado(new DisponibleState(this.ambulancia));
+		return "La ambulancia se encuentra disponible en la clinica";
 	}
 
 	@Override

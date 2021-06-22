@@ -4,7 +4,7 @@ public interface IState
 {
 	public String atencionDomicilio();
 	public String trasladoALaClinica();
-	public void volverAClinica();
+	public String volverAClinica();
 	public String repararAmbulancia();
 	
 }

@@ -22,14 +22,15 @@ public class EnTallerState implements IState
 	}
 
 	@Override
-	public void volverAClinica()
+	public String volverAClinica()
 	{
 		this.ambulancia.setEstado(new RegresandoTallerState(this.ambulancia));
+		return "La ambulancia vuelve del taller";
 	}
 
 	@Override
 	public String repararAmbulancia()
 	{
-		return null;
+		return "La ambulancia se esta reparando en el taller";
 	}
 }

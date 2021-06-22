@@ -225,12 +225,12 @@ public class Prueba {
 //----------------------------------------------------LOTE DE PRUEBA PARA FACTURAR (en la 2da parte se leen a partir de interfaces graficas)----------------------------------------------------------------------------------------		
 		Prestacion p1 = new Prestacion(m1, 3);
 		Prestacion p2 = new Prestacion(m2, 7);
-		Prestacion p3 = new Prestacion(m3, 1);
+		//Prestacion p3 = new Prestacion(m3, 1);
 		Prestacion p4 = new Prestacion(m3, 5);
 		Prestacion p5 = new Prestacion(m1, 10);
 
 		Prestacion p6 = new Prestacion(h1, 20);
-		Prestacion p7 = new Prestacion(h2, 13);
+		//Prestacion p7 = new Prestacion(h2, 13);
 		Prestacion p8 = new Prestacion(h2, 3);
 		Prestacion p9 = new Prestacion(h3, 5);
 		Prestacion p10 = new Prestacion(h1, 4);

@@ -61,10 +61,25 @@ public class Clinica {
 		super();
 		salaPriv = Sala_privada.getInstace();
 		pat = Patio.getInstance();
-		operario = Operario.getInstance();
-		operario.setClinica(this);
 		ambulancia = Ambulancia.getInstance();
+		operario = Operario.getInstance();
+		operario.setAmbulancia(this.ambulancia);
 	}
+	
+	public void iniciaSimulacion()
+	{
+		ArrayList<Thread> hilos = new ArrayList<Thread>();
+		Thread hilo_operario = new Thread(this.operario);
+		int i = 0;
+		for(String clave: this.asociados.keySet())
+		{
+			hilos.add(new Thread(this.asociados.get(clave)));
+			hilos.get(i).start();
+			i++;
+		}
+		hilo_operario.start();
+	}
+	
 	
 	public Operario getOperario()
 	{
@@ -80,7 +95,10 @@ public class Clinica {
 		if (this.asociados.get(asociado.getDni()) != null)
 			throw new MismoDniExcepcion(asociado.getDni());
 		else
+		{
+			asociado.setAmbulancia(this.ambulancia);
 			this.asociados.put(asociado.getDni(), asociado);
+		}
 	}
 
 	 /**
@@ -114,59 +132,6 @@ public class Clinica {
 	public void removerMedico(String dni) throws MedicoNoEncontradoException {
 		if (this.medicos.remove(dni) == null)
 			throw new MedicoNoEncontradoException("El medico no forma parte del hospital", dni);
-	}
-
-	
-	public synchronized void volverAClinica()
-	{
-		try
-		{
-			wait();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		this.ambulancia.volverAClinica();
-		notifyAll();
-	}
-	
-	public synchronized String solicitarAtecionDomicilio()
-	{
-		
-		try
-		{
-			wait();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		return this.ambulancia.atencionDomicilio();
-		
-	}
-	
-	public synchronized String trasladoClinica()
-	{
-		try
-		{
-			wait();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		return this.ambulancia.trasladoALaClinica();
-	}
-	
-	public synchronized String repararAmbulancia()
-	{
-		try
-		{
-			wait();
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-		return this.ambulancia.repararAmbulancia();
-		
 	}
 	
 	

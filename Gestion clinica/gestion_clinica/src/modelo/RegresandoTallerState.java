@@ -22,9 +22,10 @@ public class RegresandoTallerState implements IState
 	}
 
 	@Override
-	public void volverAClinica()
+	public String volverAClinica()
 	{
 		this.ambulancia.setEstado(new DisponibleState(this.ambulancia));
+		return "La ambulancia se encuentra disponible en la clinica";
 	}
 
 	@Override
