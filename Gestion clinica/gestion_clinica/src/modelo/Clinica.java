@@ -9,13 +9,9 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
+import excepciones.AsociadoNoEncontradoException;
 import excepciones.MedicoNoEncontradoException;
 import excepciones.MismoDniExcepcion;
-import excepciones.NoExisteContratacionException;
-import excepciones.NoExisteEspecialidadException;
-import excepciones.NoExistePosgradoException;
-import excepciones.NoHayContratacionException;
-import excepciones.NoHayEspecialidadException;
 import excepciones.PacienteNoEncontradoExcepcion;
 
 
@@ -41,6 +37,9 @@ public class Clinica {
 	HashMap<String, Paciente> pacientes = new HashMap<String, Paciente>();
 	HashMap<String, Paciente> atencion = new HashMap<String, Paciente>();
 	HashMap<String, IMedico> medicos = new HashMap<String, IMedico>();
+	HashMap<String, Asociado> asociados = new HashMap<String, Asociado>();
+	private Operario operario;
+	private Ambulancia ambulancia;
 	private Queue<Paciente> colaDeEspera = new LinkedList<>();
 	private Sala_privada salaPriv;
 	private Patio pat;
@@ -62,8 +61,37 @@ public class Clinica {
 		super();
 		salaPriv = Sala_privada.getInstace();
 		pat = Patio.getInstance();
+		operario = Operario.getInstance();
+		operario.setClinica(this);
+		ambulancia = Ambulancia.getInstance();
+	}
+	
+	public Operario getOperario()
+	{
+		return operario;
+	}
+	
+	/** 
+     * @param asociado objeto asociado precondicion distinto de null
+     * @throws MismoDniExcepcion si ya hay un asociado con el mismo dni propaga la excepcion
+     * post Da de alta nuevo asociado para ser usado en el sistema
+     */
+	public void agregarAsociado(Asociado asociado) throws MismoDniExcepcion {
+		if (this.asociados.get(asociado.getDni()) != null)
+			throw new MismoDniExcepcion(asociado.getDni());
+		else
+			this.asociados.put(asociado.getDni(), asociado);
 	}
 
+	 /**
+     * @param dni pre: dni formato valido a cargo del usuario
+     * @throws AsociadoNoEncontradoException Si el dni enviado no es igual a ninguno de los asociados de la clinica lanza la execepcion
+     * post se da la baja del medico del sistema
+     */
+	public void removerAsociado(String dni) throws AsociadoNoEncontradoException {
+		if (this.asociados.remove(dni) == null)
+			throw new AsociadoNoEncontradoException("El asociado no forma parte del hospital", dni);
+	}
 	
 	
 	 /** 
@@ -78,9 +106,6 @@ public class Clinica {
 			this.medicos.put(medico.getDni(), medico);
 	}
 
-	
-	
-	
 	 /**
      * @param dni pre: dni formato valido a cargo del usuario
      * @throws MedicoNoEncontradoException Si el dni enviado no es igual a ninguno de los medicos de la clinica lanza la execepcion
@@ -91,6 +116,59 @@ public class Clinica {
 			throw new MedicoNoEncontradoException("El medico no forma parte del hospital", dni);
 	}
 
+	
+	public synchronized void volverAClinica()
+	{
+		try
+		{
+			wait();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		this.ambulancia.volverAClinica();
+		notifyAll();
+	}
+	
+	public synchronized String solicitarAtecionDomicilio()
+	{
+		
+		try
+		{
+			wait();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return this.ambulancia.atencionDomicilio();
+		
+	}
+	
+	public synchronized String trasladoClinica()
+	{
+		try
+		{
+			wait();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return this.ambulancia.trasladoALaClinica();
+	}
+	
+	public synchronized String repararAmbulancia()
+	{
+		try
+		{
+			wait();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+		return this.ambulancia.repararAmbulancia();
+		
+	}
+	
 	
 	
 	/**
@@ -113,9 +191,6 @@ public class Clinica {
 		return this.medicos.get(dni);
 	}
 
-	
-	
-	
 	/**
      * @param dni pre condi string valido
      * @return clon de l paciente con dni buscado
@@ -138,9 +213,6 @@ public class Clinica {
 			return p1;
 	}
 
-	
-	
-	
 	  /**
      * @param dni pre condi string valido
      * @throws PacienteNoEncontradoExcepcion si el dni no esta regristado
@@ -152,8 +224,6 @@ public class Clinica {
 
 	}
 
-	
-	
 	 /**
      * @param dni pre cadena valida
      * @param nom pre cadena valida
@@ -216,9 +286,6 @@ public class Clinica {
 		}
 	}
 
-	
-	
-	
 	 /**
      * @param p  pre paciente distinto de null Ingresa el paciente la espera de ser atendido por orden de llgada y segun su rango etario decide donde espera
      * post paciente ingresado
@@ -237,8 +304,6 @@ public class Clinica {
 			pat.AgregaPaciente(p);
 	}
 
-	
-	
     /**
      * Manda paciente a area de atencion si no hay pacientes indica que esta vacia.
      */
@@ -261,8 +326,6 @@ public class Clinica {
 		}
 
 	}
-
-	
 
 	public void muestraPacientesAtencion() {
 		Paciente p;
@@ -372,9 +435,6 @@ public class Clinica {
 			System.out.println("No hay facturas que involucren a el medico " + medico.getNombre()+ " en el rango de fechas solicitado");
 	}
 
-	
-	
-	
 	
 	public String muestraFecha(GregorianCalendar fecha) {
 		return fecha.get(Calendar.DATE) + "/" + fecha.get(Calendar.MONTH) + "/" + fecha.get(Calendar.YEAR);

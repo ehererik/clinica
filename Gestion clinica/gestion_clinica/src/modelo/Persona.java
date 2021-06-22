@@ -9,6 +9,15 @@ public abstract class Persona implements Cloneable
 	private String ciudad;
 	private String telefono;
 	
+	public Persona(String nombre, String apellido, String dni, String domicilio, String telefono)
+	{
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.domicilio = domicilio;
+		this.telefono = telefono;
+	}
+	
 	public Persona(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono)
 	{
 		this.nombre = nombre;
@@ -19,9 +28,7 @@ public abstract class Persona implements Cloneable
 		this.telefono = telefono;
 	}
 	
-	public Persona()
-	{
-	}
+	public Persona(){}
 
 	public String getNombre()
 	{
