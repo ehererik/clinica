@@ -9,7 +9,7 @@ package modelo;
 public class Pediatra extends Medico
 {
 
-
+	private static final long serialVersionUID = 83875546;
 	protected Pediatra(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, double sueldoBase)
 	{
 		super(nombre, apellido, dni, domicilio, ciudad, telefono, sueldoBase);

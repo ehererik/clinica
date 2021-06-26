@@ -25,7 +25,8 @@ public class EnTallerState implements IState
 	public String volverAClinica()
 	{
 		this.ambulancia.setEstado(new RegresandoTallerState(this.ambulancia));
-		return "La ambulancia vuelve del taller";
+		this.ambulancia.setAccion("La ambulancia esta volviendo del taller"); //capaz hay que eliminar esta linea
+		return "La ambulancia esta volviendo del taller";
 	}
 
 	@Override

@@ -1,8 +1,5 @@
 package modelo;
 
-
-
-
 /**
  * @author Agustin <br>
  *         Clase que se extiende de Medico que indica que la especialidad de
@@ -11,6 +8,8 @@ package modelo;
 
 public class Cirujano extends Medico
 {
+
+	private static final long serialVersionUID = 1849758455;
 
 	protected Cirujano(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono, double sueldoBase)
 	{

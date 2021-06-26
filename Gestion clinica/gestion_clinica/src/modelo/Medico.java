@@ -2,6 +2,7 @@ package modelo;
 
 public abstract class Medico extends Persona implements IMedico
 {
+	private static final long serialVersionUID = 41119485;
 	protected double honorarioBasico;
 
 	protected Medico(String nombre, String apellido, String dni, String domicilio, String ciudad, String telefono,

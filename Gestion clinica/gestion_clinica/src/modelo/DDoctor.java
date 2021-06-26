@@ -1,6 +1,5 @@
 package modelo;
 
-
 /**
  * @author Agustin <br>
  *         Clase que se extiende de "DecoratorPosgrado" que permite que su
@@ -10,6 +9,7 @@ package modelo;
  */
 public class DDoctor extends DecoratorPosgrado
 {
+	private static final long serialVersionUID = 332999455;
 	protected DDoctor(IMedico encapsulado)
 	{
 		super(encapsulado);

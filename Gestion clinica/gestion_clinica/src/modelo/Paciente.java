@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public abstract class Paciente extends Persona implements PrioridadAsignacion
 {
-	int nroOrden;
-	ArrayList<Prestacion> prestaciones = new ArrayList<Prestacion>();
+	private static final long serialVersionUID = 982246755;
+	private transient int nroOrden;
+	private transient ArrayList<Prestacion> prestaciones = new ArrayList<Prestacion>();
 
 	public Paciente(String nombre, String apellido, String dni, String domicilo, String ciudad, String telefono)
 	{

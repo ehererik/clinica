@@ -4,10 +4,16 @@ import util.Util;
 
 public class Operario extends Persona implements Runnable
 {
+	private static final long serialVersionUID = 1281335842;
 	private static Operario Instance; 
 	private Ambulancia ambulancia;
 	private int cantSolicitudes = 4;
 	private String accion;
+	
+	public String getAccion()
+	{
+		return this.accion;
+	}
 	
 	public static Operario getInstance()
 	{

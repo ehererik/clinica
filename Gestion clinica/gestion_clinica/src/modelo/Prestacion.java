@@ -1,8 +1,10 @@
 package modelo;
 
-public class Prestacion implements IPrestacion
-{
+import java.io.Serializable;
 
+public class Prestacion implements IPrestacion, Serializable
+{
+	private static final long serialVersionUID = 79196461;
 	private IPrestacion prestacion;
 	private int cantidad;
 

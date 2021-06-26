@@ -25,6 +25,7 @@ public class AtendiendoState implements IState
 	public String volverAClinica()
 	{
 		this.ambulancia.setEstado(new RegresandoSinPacienteState(this.ambulancia));
+		this.ambulancia.setAccion("La ambulancia vuelve de una atencion a domicilio"); //capaz hay que eliminar esta linea
 		return "La ambulancia vuelve de una atencion a domicilio";
 	}
 

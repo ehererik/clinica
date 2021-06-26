@@ -9,6 +9,7 @@ package modelo;
  */
 public class DMagister extends DecoratorPosgrado
 {
+	private static final long serialVersionUID = 1843529455;
 	protected DMagister(IMedico encapsulado)
 	{
 		super(encapsulado);

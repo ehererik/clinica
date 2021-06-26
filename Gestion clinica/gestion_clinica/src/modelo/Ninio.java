@@ -1,7 +1,9 @@
 package modelo;
 
 public class Ninio extends Paciente {
-    public Ninio() {
+    
+	private static final long serialVersionUID = 43241485;
+	public Ninio() {
         super();
     }
 

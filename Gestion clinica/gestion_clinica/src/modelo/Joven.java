@@ -1,7 +1,10 @@
 package modelo;
 
 public class Joven extends Paciente implements PrioridadAsignacion {
-    public Joven() {
+
+	private static final long serialVersionUID = 43299485;
+
+	public Joven() {
         super();
     }
 

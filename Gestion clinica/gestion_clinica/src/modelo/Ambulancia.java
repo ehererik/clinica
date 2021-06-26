@@ -32,7 +32,14 @@ public class Ambulancia implements IState
 	{
 		return estado;
 	}
-
+	
+	public void setAccion(String arg)
+	{
+		this.accion = arg;
+		//this.setChanged();
+		//this.notifyObservers(this.accion);
+	}
+	
 	protected void setEstado(IState estado)
 	{
 		this.estado = estado;
@@ -89,7 +96,7 @@ public class Ambulancia implements IState
 		{
 			try
 			{	
-				asociado.setAccion(asociado.getNombre() + " " + asociado.getApellido() + " solicita atencion a domicilio pero la ambulancia no esta disponible, debe esperar");
+				asociado.setAccion(asociado.getNombre() + " solicita atencion a domicilio pero la ambulancia no esta disponible, debe esperar");
 				wait();
 			} catch (InterruptedException e)
 			{
@@ -108,7 +115,7 @@ public class Ambulancia implements IState
 		{
 			try
 			{
-				asociado.setAccion(asociado.getNombre() + " " + asociado.getApellido() + " solicita traslado a la clinica pero la ambulancia no esta disponible, debe esperar");
+				asociado.setAccion(asociado.getNombre() + " solicita traslado a la clinica pero la ambulancia no esta disponible, debe esperar");
 				wait();
 			} catch (InterruptedException e)
 			{
@@ -138,6 +145,11 @@ public class Ambulancia implements IState
 		this.accion = this.repararAmbulancia();
 		//this.setChanged();
 		//this.notifyObservers(this.accion);
+	}
+
+	public String getAccion()
+	{
+		return accion;
 	}
 	
 }

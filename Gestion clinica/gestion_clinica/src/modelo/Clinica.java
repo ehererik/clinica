@@ -29,7 +29,8 @@ import excepciones.PacienteNoEncontradoExcepcion;
  *<br>-Patio pat: puede contener 0 o mas pacientes segun prioridad de pacientes para esperar ser atendidos.</br>
  *<br>- static int nroORden: variable statica que asigana numero de orden por orden de llegada a los pacientes en espera para ser atendidos.</br>
  */
-public class Clinica {
+public class Clinica
+{
 	
 	private static Clinica instance = null;
 	private String nombre;
@@ -46,7 +47,83 @@ public class Clinica {
 	private static int nroORden = 0;
 
 	ArrayList<Factura> facturas = new ArrayList<>();
+	
+	//--------------------PARA-TESTEAR------------------------------------------
+	public void listaAsociados()
+	{
+		for(String clave: this.asociados.keySet())
+		{
+			System.out.println(this.asociados.get(clave).toString());
+		}
+	}
+	
+	public void listaMedicos()
+	{
+		for(String clave: this.medicos.keySet())
+		{
+			System.out.println(this.medicos.get(clave).toString());
+		}
+	}
+	
+	public void listaPacientes()
+	{
+		for(String clave: this.pacientes.keySet())
+		{
+			System.out.println(this.pacientes.get(clave).toString());
+		}
+	}
+	//--------------------PARA-TESTEAR------------------------------------------
+	
+	//-----------------PARA-LA-SERIALIZACION-----------------------------
+	
+	
+	public HashMap<String, Paciente> getPacientes()
+	{
+		return pacientes;
+	}
 
+	public void setPacientes(HashMap<String, Paciente> pacientes)
+	{
+		this.pacientes = pacientes;
+	}
+
+	public HashMap<String, IMedico> getMedicos()
+	{
+		return medicos;
+	}
+
+	public void setMedicos(HashMap<String, IMedico> medicos)
+	{
+		this.medicos = medicos;
+	}
+
+	public HashMap<String, Asociado> getAsociados()
+	{
+		return asociados;
+	}
+
+	public void setAsociados(HashMap<String, Asociado> asociados)
+	{
+		this.asociados = asociados;
+		for(String clave: this.asociados.keySet())
+		{
+			this.asociados.get(clave).setAmbulancia(this.ambulancia);
+		}
+	}
+
+	public Ambulancia getAmbulancia()
+	{
+		return ambulancia;
+	}
+
+	public void setAmbulancia(Ambulancia ambulancia)
+	{
+		this.ambulancia = ambulancia;
+	}
+	
+	
+	//-------------------------------------------------------------
+	
 	
 	 /**Obtener instancia con patron singleton
      * @return instancia clinica

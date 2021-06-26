@@ -10,6 +10,7 @@ package modelo;
  */
 public class DResidente extends DecoratorContratacion
 {
+	private static final long serialVersionUID = 1833499455;
 	protected DResidente(IMedico encapsulado)
 	{
 		super(encapsulado);

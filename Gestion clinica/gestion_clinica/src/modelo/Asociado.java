@@ -1,14 +1,15 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import util.Util;
 
-public class Asociado extends Persona implements Runnable
+public class Asociado extends Persona implements Runnable, Serializable
 {
-	private Ambulancia ambulancia;
-	private static Random r = new Random();
-	private int solicitud;
+	private static final long serialVersionUID = 1324538455;
+	private transient Ambulancia ambulancia;
+	private transient int solicitud;
 	private int cantSolicitudes = 4;
 	private String accion;
 	
@@ -18,6 +19,16 @@ public class Asociado extends Persona implements Runnable
 		this.accion = "El asociado " + this.getNombre() + " " + this.getApellido() + " se encuentra en su domicilio";
 		//this.setChanged();
 		//this.notifyObservers(this.accion);
+	}
+	
+	public String getAccion()
+	{
+		return this.accion;
+	}
+	
+	public Ambulancia getAmbulancia()
+	{
+		return this.ambulancia;
 	}
 	
 	public void setAmbulancia(Ambulancia amb)
@@ -38,12 +49,20 @@ public class Asociado extends Persona implements Runnable
 	}
 	
 	
+	
+	@Override
+	public String toString()
+	{
+		return "Asociado [" + this.getNombre() + "]";
+	}
+
 	@Override
 	public void run()
 	{
 		
 		for(int i=0; i<this.cantSolicitudes ; i++)
 		{
+			Random r = new Random();
 			solicitud = r.nextInt(2);
 			if(solicitud == 1)
 			{
@@ -67,7 +86,7 @@ public class Asociado extends Persona implements Runnable
 			}
 			Util.esperaRandom(10000);
 		}
-		
+		this.accion = "El asociado " + this.getNombre() + " " + this.getApellido() + " se encuentra en su domicilio";
 	}
 	
 }

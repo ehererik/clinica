@@ -1,7 +1,9 @@
 package modelo;
 
 public class Mayor extends Paciente implements PrioridadAsignacion {
-    public Mayor() {
+    
+	private static final long serialVersionUID = 43000485;
+	public Mayor() {
         super();
     }
 

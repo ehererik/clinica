@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * @author Agustin <br>
  *         Clase abstracta decoradora que permite agregarle un tipo de
@@ -7,8 +9,9 @@ package modelo;
  *         IMedico, que va a ser el medico a decorar. Implementa la interface
  *         IMedico.
  */
-public abstract class DecoratorContratacion implements IMedico
+public abstract class DecoratorContratacion implements IMedico, Serializable
 {
+	private static final long serialVersionUID = 1877777455;
 	protected IMedico encapsulado;
 
 	protected DecoratorContratacion(IMedico encapsulado)

@@ -1,7 +1,10 @@
 package modelo;
 
-public abstract class Persona implements Cloneable
+import java.io.Serializable;
+
+public abstract class Persona implements Cloneable, Serializable
 {
+	private static final long serialVersionUID = 413557585;
 	private String nombre;
 	private String apellido;
 	private String dni;
